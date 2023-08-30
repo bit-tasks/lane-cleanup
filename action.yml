@@ -1,0 +1,12 @@
+name: 'Bit Lane Cleanup'
+description: 'Removes Bit Lanes created by Bit Pull Request Task'
+branding: 
+  icon: 'delete'
+  color: 'purple'
+inputs:
+  ws-dir:
+    description: "Workspace json file directory path"
+    required: false
+runs:
+  using: 'node16'
+  main: 'dist/index.js'

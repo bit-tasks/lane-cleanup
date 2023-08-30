@@ -1,0 +1,37 @@
+name: Test Bit Lane Cleanup
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - closed
+      
+permissions:
+  pull-requests: write
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      BIT_CONFIG_USER_TOKEN: ${{ secrets.BIT_CONFIG_USER_TOKEN }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Initialize Bit
+        uses: bit-tasks/init@v1
+        with:
+            ws-dir: 'test-data'
+      - name: Creating a bare scope
+        run: mkdir org.scope-name && cd org.scope-name && bit init --bare
+      - name: Start the server and test
+        run: cd org.scope-name && bit start --port 4000 --no-browser & sleep 200 && curl http://localhost:4000 
+      - name: Add remote scope
+        run: cd test-data && bit remote add http://localhost:4000   
+      - name: Bit Pull Request
+        uses: bit-tasks/pull-request@main
+      - name: Bit Lanes Before Cleanup
+        run: cd test-data && bit lane list --details
+      - name: Bit Lane Cleanup
+        uses: bit-tasks/lane-cleanup@main
+      - name: Bit Lanes After Cleanup
+        run: cd test-data && bit lane list --details
