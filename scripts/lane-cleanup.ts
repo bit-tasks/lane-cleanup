@@ -6,7 +6,7 @@ const run = async (laneName: string, wsdir: string) => {
 
   try {
     await exec(
-      `bit lane remove ${org}.${scope}/${laneName} --remote --silent`,
+      `bit lane remove ${org}.${scope}/${laneName} --remote --silent --force`,
       [],
       { cwd: wsdir }
     );

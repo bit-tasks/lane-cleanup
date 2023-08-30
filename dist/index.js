@@ -10918,7 +10918,7 @@ const run = (laneName, wsdir) => __awaiter(void 0, void 0, void 0, function* () 
     const org = process.env.ORG;
     const scope = process.env.SCOPE;
     try {
-        yield (0, exec_1.exec)(`bit lane remove ${org}.${scope}/${laneName} --remote --silent`, [], { cwd: wsdir });
+        yield (0, exec_1.exec)(`bit lane remove ${org}.${scope}/${laneName} --remote --silent --force`, [], { cwd: wsdir });
     }
     catch (error) {
         console.log(`Cannot remove bit lane: ${error}. Lane may not exist`);
