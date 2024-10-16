@@ -10884,16 +10884,49 @@ const github_1 = __nccwpck_require__(5438);
 const lane_cleanup_1 = __importDefault(__nccwpck_require__(7813));
 try {
     const wsDir = core.getInput("ws-dir") || process.env.WSDIR || "./";
+    const archive = core.getInput("archive") === "true" ? true : false;
     const prNumber = (_b = (_a = github_1.context === null || github_1.context === void 0 ? void 0 : github_1.context.payload) === null || _a === void 0 ? void 0 : _a.pull_request) === null || _b === void 0 ? void 0 : _b.number;
     if (!prNumber) {
         throw new Error("Pull Request number is not found");
     }
     const laneName = `pr-${prNumber === null || prNumber === void 0 ? void 0 : prNumber.toString()}`;
-    (0, lane_cleanup_1.default)(laneName, wsDir);
+    (0, lane_cleanup_1.default)(laneName, archive, wsDir);
 }
 catch (error) {
     core.setFailed(error.message);
 }
+
+
+/***/ }),
+
+/***/ 8946:
+/***/ ((__unused_webpack_module, exports) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.archiveLane = void 0;
+const GRAPHQL_ENDPOINT = 'https://api.v2.bit.cloud/graphql';
+const archiveLane = (id, token) => {
+    const query = `
+    mutation DELETE_LANE($id: String!) {
+      deleteLane(id: $id)
+    }
+  `;
+    const variables = { id };
+    return fetch(GRAPHQL_ENDPOINT, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+            query,
+            variables,
+        }),
+    }).then(response => response.json());
+};
+exports.archiveLane = archiveLane;
 
 
 /***/ }),
@@ -10903,6 +10936,29 @@ catch (error) {
 
 "use strict";
 
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -10914,14 +10970,22 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 const exec_1 = __nccwpck_require__(1514);
-const run = (laneName, wsdir) => __awaiter(void 0, void 0, void 0, function* () {
+const graphql_1 = __nccwpck_require__(8946);
+const core = __importStar(__nccwpck_require__(2186));
+const run = (laneName, archive, wsdir) => __awaiter(void 0, void 0, void 0, function* () {
     const org = process.env.ORG;
     const scope = process.env.SCOPE;
+    const token = process.env.BIT_CONFIG_USER_TOKEN || "";
     try {
-        yield (0, exec_1.exec)(`bit lane remove ${org}.${scope}/${laneName} --remote --silent --force`, [], { cwd: wsdir });
+        if (archive) {
+            yield (0, graphql_1.archiveLane)(`${org}.${scope}/${laneName}`, token);
+        }
+        else {
+            yield (0, exec_1.exec)(`bit lane remove ${org}.${scope}/${laneName} --remote --silent --force`, [], { cwd: wsdir });
+        }
     }
     catch (error) {
-        console.log(`Cannot remove bit lane: ${error}. Lane may not exist`);
+        core.info(`Cannot remove bit lane: ${error}. Lane may not exist`);
     }
 });
 exports["default"] = run;

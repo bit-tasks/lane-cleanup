@@ -33,5 +33,7 @@ jobs:
         run: cd test-data && bit lane list --details
       - name: Bit Lane Cleanup
         uses: bit-tasks/lane-cleanup@main
+        with:
+              archive: 'true'
       - name: Bit Lanes After Cleanup
         run: cd test-data && bit lane list --details

@@ -11,6 +11,10 @@ This task removes the Bit lanes created by the `bit-tasks/pull-request@v1` task 
 
 **Optional** The workspace directory path from the root. Default `"Dir specified in Init Task or ./"`.
 
+### `archive`
+
+**Optional**  If set to `true`, the lane will be archived rather than permanently deleted.
+
 ## Example usage
 
 **Note:** Use `bit-task/init@v1` as a prior step in your action before running `bit-tasks/lane-cleanup@v1`.
