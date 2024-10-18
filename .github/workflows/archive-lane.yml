@@ -3,7 +3,7 @@ on:
   pull_request:
     types:
       - opened
-      # - synchronize
+      - synchronize
       # - closed
       
 permissions:
