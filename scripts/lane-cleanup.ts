@@ -8,6 +8,7 @@ const run = async (laneName: string, archive: boolean, wsdir: string) => {
   const token = process.env.BIT_CONFIG_USER_TOKEN || "";
   try {
     if (archive) {
+      core.info(`Archiving bit lane: ${org}.${scope}/${laneName}`);
       await archiveLane(`${org}.${scope}/${laneName}`, token);
     } else {
       await exec(

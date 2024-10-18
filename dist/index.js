@@ -10978,6 +10978,7 @@ const run = (laneName, archive, wsdir) => __awaiter(void 0, void 0, void 0, func
     const token = process.env.BIT_CONFIG_USER_TOKEN || "";
     try {
         if (archive) {
+            core.info(`Archiving bit lane: ${org}.${scope}/${laneName}`);
             yield (0, graphql_1.archiveLane)(`${org}.${scope}/${laneName}`, token);
         }
         else {
