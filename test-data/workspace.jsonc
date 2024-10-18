@@ -1,6 +1,6 @@
 /**
  * this is the main configuration file of your bit workspace.
- * for full documentation, please see: https://bit.dev/docs/workspace/workspace-configuration
+ * for full documentation, please see: https://bit.dev/reference/workspace/workspace-json
  **/{
   "$schema": "https://static.bit.dev/teambit/schemas/schema.json",
   /**
@@ -14,7 +14,7 @@
     /**
      * set the icon to be shown on the Bit server.
      **/
-    "icon": "https://static.bit.dev/bit-logo.svg",
+    "icon": "https://static.bit.dev/brands/bit-logo-min.png",
     /**
      * default directory to place a component during `bit import` and `bit create`.
      * the following placeholders are available:
@@ -27,65 +27,47 @@
     /**
      * default scope for all components in workspace.
      **/
-    "defaultScope": "org.scope-name"
+    "defaultScope": "bit-tasks.test-scope",
+    "resolveAspectsFromNodeModules": true,
+    "resolveEnvsFromRoots": true
+  },
+  /**
+  * Enable generator templates by uncommenting the desired environments below.
+  * These generators scaffold components for Node, React, Vue, and Angular.
+  * After uncommenting, run `bit install` to make them available in your workspace.
+  * Explore more dev environments at: https://bit.dev/docs/getting-started/composing/dev-environments
+  **/
+  "teambit.generator/generator": {
+    "envs": [
+      //  "bitdev.node/node-env",
+      //  "bitdev.react/react-env",
+      //  "bitdev.vue/vue-env",
+      //  "bitdev.angular/angular-env"
+    ]
   },
   /**
    * main configuration for component dependency resolution.
    **/
   "teambit.dependencies/dependency-resolver": {
+    /**
+     * choose the package manager for Bit to use. you can choose between 'yarn', 'pnpm'
+     */
     "packageManager": "teambit.dependencies/pnpm",
     "policy": {
       "dependencies": {
-        "@teambit/defender.eslint-linter": "1.0.42",
-        "@teambit/defender.jest-tester": "2.0.15",
-        "@teambit/defender.prettier-formatter": "1.0.20",
-        "@teambit/dependencies.modules.packages-excluder": "1.0.8",
-        "@teambit/eslint-config-bit-react": "~0.0.367",
-        "@teambit/mdx.ui.mdx-scope-context": "1.0.7",
-        "@teambit/node.node": "1.0.101",
-        "@teambit/preview.react-preview": "1.0.64",
-        "@teambit/react.mounter": "1.0.28",
-        "@teambit/react.react-env": "1.0.109",
-        "@teambit/typescript.typescript-compiler": "2.0.45",
-        "@typescript-eslint/eslint-plugin": "8.10.0",
-        "eslint-import-resolver-node": "0.3.9",
-        "eslint-plugin-import": "2.31.0",
-        "eslint-plugin-jest": "28.8.3",
-        "eslint-plugin-jsx-a11y": "6.10.0",
-        "eslint-plugin-mdx": "3.1.5",
-        "eslint-plugin-react": "7.37.1"
+        "@learnbit/hello-world.get-hello-world": "^0.0.15",
+        "@learnbit/hello-world.ui.hello-world": "^0.0.19",
+        "@teambit/node.node": "^1.0.101",
+        "@teambit/react.apps.react-app-types": "^2.0.5",
+        "@teambit/react.react-env": "^1.0.109"
       },
-      "peerDependencies": {
-        "@apollo/client": "3.11.8",
-        "@testing-library/react": "^16.0.1",
-        "@testing-library/react-hooks": "^8.0.1",
-        "graphql": "^16.9.0",
-        "react": "^18.3.1",
-        "react-dom": "^18.3.1",
-        "react-router-dom": "^6.27.0",
-        "subscriptions-transport-ws": "^0.11.0"
-      }
+      "peerDependencies": {}
     },
     "linkCoreAspects": true,
     "rootComponents": true
   },
-  /**
-   * workspace variants allow to set different subsets of configuration for components in your
-   * workspace. this is extremely useful for upgrading, aligning and building components with a new
-   * set of dependencies. a rule can be a directory or a component-id/namespace, in which case,
-   * wrap the rule with curly brackets (e.g. `"{ui/*}": {}`)
-   * see https://bit.dev/docs/workspace/variants for more info.
-   **/
-  "teambit.workspace/variants": {
-    /**
-     * "*" is a special rule which applied on all components in the workspace.
-     **/
-    "*": {
-      /**
-       * uncomment to apply the chosen environment on all components.
-       **/
-      // "teambit.react/react": { }
-    }
+  "teambit.workspace/workspace-config-files": {
+    "enableWorkspaceConfigWrite": true
   },
-  "org.scope-name/hello-world-app": {}
+  "bit-tasks.test-scope/hello-world-app": {}
 }
