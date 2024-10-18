@@ -3,8 +3,8 @@ on:
   pull_request:
     types:
       - opened
-      - synchronize
-      - closed
+      # - synchronize
+      # - closed
       
 permissions:
   pull-requests: write
@@ -23,9 +23,11 @@ jobs:
             ws-dir: 'test-data'
       - name: Bit Pull Request
         uses: bit-tasks/pull-request@main
+      - name: Bit Lanes before Archive
+        run: cd test-data && bit lane list --details
       - name: Bit Lane Cleanup
         uses: bit-tasks/lane-cleanup@main
         with:
             archive: 'true'
-      - name: Bit Lanes After Cleanup
+      - name: Bit Lanes After Archive
         run: cd test-data && bit lane list --details
