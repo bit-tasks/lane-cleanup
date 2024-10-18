@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react';
-import { BasicHelloWorld } from './hello-world.composition';
+import { BasicHelloWorld } from './hello-world.composition.js';
 
 it('should render with the correct text', () => {
   const { getByText } = render(<BasicHelloWorld />);

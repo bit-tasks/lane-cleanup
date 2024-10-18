@@ -1,4 +1,4 @@
-import { getHelloWorld } from '@learnbit/hello-world.get-hello-world';
+import { getHelloWorld } from '@bit-tasks/test-scope.get-hello-world';
 
 /**
  * renders a "hello world" message

@@ -1,4 +1,4 @@
-import { getHelloWorld } from './get-hello-world';
+import { getHelloWorld } from './get-hello-world.js';
 
 it('returns the greeting with the default language', () => {
   expect(getHelloWorld()).toBe('Hello world!');

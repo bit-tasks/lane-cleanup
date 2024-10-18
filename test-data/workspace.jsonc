@@ -55,11 +55,13 @@
     "packageManager": "teambit.dependencies/pnpm",
     "policy": {
       "dependencies": {
+        "@bitdev/react.app-types.vite-react": "^2.1.2",
         "@learnbit/hello-world.get-hello-world": "^0.0.15",
         "@learnbit/hello-world.ui.hello-world": "^0.0.19",
         "@teambit/node.node": "^1.0.101",
         "@teambit/react.apps.react-app-types": "^2.0.5",
-        "@teambit/react.react-env": "^1.0.109"
+        "@teambit/react.react-env": "^1.0.109",
+        "@vitejs/plugin-react": "^4.3.2"
       },
       "peerDependencies": {}
     },
@@ -68,5 +70,6 @@
   },
   "teambit.workspace/workspace-config-files": {
     "enableWorkspaceConfigWrite": true
-  }
+  },
+  "bit-tasks.test-scope/apps/my-app": {}
 }

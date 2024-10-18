@@ -1,4 +1,4 @@
-import { getHelloWorld } from './get-hello-world';
+import { getHelloWorld } from './get-hello-world.js';
 
 export function GreetsInEnglish() {
   return <div>{getHelloWorld('en')}</div>;

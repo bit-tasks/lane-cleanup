@@ -1,1 +1,1 @@
-export { getHelloWorld } from './get-hello-world';
+export { getHelloWorld } from './get-hello-world.js';
