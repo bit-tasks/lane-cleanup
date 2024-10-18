@@ -1,9 +1,7 @@
-name: Test Bit Lane Cleanup
+name: Test Bit Lane Archive
 on:
   pull_request:
     types:
-      - opened
-      - synchronize
       - closed
       
 permissions:
@@ -21,17 +19,9 @@ jobs:
         uses: bit-tasks/init@v1
         with:
             ws-dir: 'test-data'
-      - name: Creating a bare scope
-        run: mkdir bit-tasks.test-scope && cd bit-tasks.test-scope && bit init --bare
-      - name: Start the server and test
-        run: cd bit-tasks.test-scope && bit start --port 4000 --no-browser & sleep 200 && curl http://localhost:4000 
-      - name: Add remote scope
-        run: cd test-data && bit remote add http://localhost:4000   
-      - name: Bit Pull Request
-        uses: bit-tasks/pull-request@main
-      - name: Bit Lanes Before Cleanup
-        run: cd test-data && bit lane list --details
       - name: Bit Lane Cleanup
         uses: bit-tasks/lane-cleanup@main
+        with:
+            archive: 'true'
       - name: Bit Lanes After Cleanup
         run: cd test-data && bit lane list --details
