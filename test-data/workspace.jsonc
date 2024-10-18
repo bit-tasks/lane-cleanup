@@ -68,6 +68,5 @@
   },
   "teambit.workspace/workspace-config-files": {
     "enableWorkspaceConfigWrite": true
-  },
-  "bit-tasks.test-scope/hello-world-app": {}
+  }
 }

@@ -16,13 +16,6 @@
         "mainFile": "index.ts",
         "rootDir": "test-scope/get-hello-world"
     },
-    "hello-world-app": {
-        "name": "hello-world-app",
-        "scope": "bit-tasks.test-scope",
-        "version": "0.0.1",
-        "mainFile": "index.ts",
-        "rootDir": "test-scope/hello-world-app"
-    },
     "ui/hello-world": {
         "name": "ui/hello-world",
         "scope": "bit-tasks.test-scope",
