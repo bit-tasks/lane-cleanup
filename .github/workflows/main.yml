@@ -1,10 +1,10 @@
 name: Test Bit Lane Cleanup
 on:
-  # pull_request:
-  #   types:
-  #     - opened
-  #     - synchronize
-  #     - closed
+  pull_request:
+    types:
+      # - opened
+      - synchronize
+      # - closed
       
 permissions:
   pull-requests: write
