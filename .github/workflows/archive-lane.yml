@@ -2,6 +2,8 @@ name: Test Bit Lane Archive
 on:
   pull_request:
     types:
+      - opened
+      - synchronize
       - closed
       
 permissions:
@@ -19,6 +21,8 @@ jobs:
         uses: bit-tasks/init@v1
         with:
             ws-dir: 'test-data'
+      - name: Bit Pull Request
+        uses: bit-tasks/pull-request@main
       - name: Bit Lane Cleanup
         uses: bit-tasks/lane-cleanup@main
         with:
