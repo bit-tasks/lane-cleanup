@@ -26,7 +26,7 @@
     "ui/hello-world": {
         "name": "ui/hello-world",
         "scope": "bit-tasks.test-scope",
-        "version": "0.0.3",
+        "version": "0f235a6476222df1bb1ac1ba9e0cfbb89722fef1",
         "mainFile": "index.ts",
         "rootDir": "test-scope/ui/hello-world"
     },
